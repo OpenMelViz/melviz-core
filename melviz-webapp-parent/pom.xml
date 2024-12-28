@@ -29,7 +29,7 @@
     <relativePath>../pom.xml</relativePath>
   </parent>
 
-  <artifactId>melviz-runtime-parent</artifactId>
+  <artifactId>melviz-webapp-parent</artifactId>
   <packaging>pom</packaging>
 
   <name>Melviz Runtime Project</name>
@@ -47,8 +47,8 @@
   </dependencyManagement>
 
   <modules>
-    <module>melviz-runtime-shared</module>
-    <module>melviz-runtime-client</module>
+    <module>melviz-webapp-shared</module>
+    <module>melviz-webapp</module>
   </modules>
 
 </project>

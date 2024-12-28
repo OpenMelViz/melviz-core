@@ -269,7 +269,7 @@
 		<module>kie-soup-dataset</module>
 		<module>melviz-shared</module>
 		<module>melviz-client</module>
-		<module>melviz-runtime-parent</module>
+		<module>melviz-webapp-parent</module>
 	</modules>
 	<dependencies>
 		<dependency>
