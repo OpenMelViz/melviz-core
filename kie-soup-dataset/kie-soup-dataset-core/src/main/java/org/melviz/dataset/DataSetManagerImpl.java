@@ -17,7 +17,6 @@ package org.melviz.dataset;
 
 import java.util.List;
 
-import org.apache.commons.lang3.StringUtils;
 import org.melviz.dataprovider.DataSetProvider;
 import org.melviz.dataprovider.DataSetProviderRegistry;
 import org.melviz.dataprovider.DataSetProviderType;
@@ -45,8 +44,7 @@ public class DataSetManagerImpl implements DataSetManager {
     protected int pushMaxSize = 1024;
     protected Logger log = LoggerFactory.getLogger(DataSetManagerImpl.class);
 
-    public DataSetManagerImpl() {
-    }
+    public DataSetManagerImpl() {}
 
     public DataSetManagerImpl(DataSetDefRegistry dataSetDefRegistry,
                               DataSetProviderRegistry dataSetProviderRegistry,
@@ -120,13 +118,13 @@ public class DataSetManagerImpl implements DataSetManager {
 
     public void registerDataSet(DataSet dataSet, List<DataSetPreprocessor> preprocessors) {
         registerDataSet(dataSet);
-        for(DataSetPreprocessor p : preprocessors){
+        for (DataSetPreprocessor p : preprocessors) {
             dataSetDefRegistry.registerPreprocessor(dataSet.getUUID(), p);
         }
     }
-    
+
     public DataSet removeDataSet(String uuid) {
-        if (StringUtils.isBlank(uuid)) {
+        if (uuid == null || uuid.isBlank()) {
             return null;
         }
 
@@ -136,7 +134,7 @@ public class DataSetManagerImpl implements DataSetManager {
 
     public DataSet lookupDataSet(DataSetLookup lookup) {
         String uuid = lookup.getDataSetUUID();
-        if (StringUtils.isBlank(uuid)) {
+        if (uuid == null || uuid.isBlank()) {
             return null;
         }
 
@@ -146,7 +144,7 @@ public class DataSetManagerImpl implements DataSetManager {
         }
         List<DataSetPreprocessor> dataSetDefPreProcessors = dataSetDefRegistry.getDataSetDefPreProcessors(uuid);
         if (dataSetDefPreProcessors != null) {
-            for(DataSetPreprocessor p : dataSetDefPreProcessors){
+            for (DataSetPreprocessor p : dataSetDefPreProcessors) {
                 p.preprocess(lookup);
             }
         }
@@ -173,7 +171,7 @@ public class DataSetManagerImpl implements DataSetManager {
     }
 
     public DataSetMetadata getDataSetMetadata(String uuid) {
-        if (StringUtils.isBlank(uuid)) {
+        if (uuid == null || uuid.isBlank()) {
             return null;
         }
 

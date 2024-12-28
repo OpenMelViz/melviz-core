@@ -15,7 +15,6 @@
  */
 package org.melviz.dataset.engine.index;
 
-import org.melviz.dataset.engine.index.stats.MemSizeFormatter;
 import org.melviz.dataset.engine.index.visitor.DataSetIndexVisitor;
 import org.melviz.dataset.impl.MemSizeEstimator;
 
@@ -55,7 +54,7 @@ public abstract class DataSetIndexElement {
     }
 
     public long getReuseTime() {
-        return buildTime*reuseHits;
+        return buildTime * reuseHits;
     }
 
     public void acceptVisitor(DataSetIndexVisitor visitor) {
@@ -70,11 +69,10 @@ public abstract class DataSetIndexElement {
         StringBuilder out = new StringBuilder();
         String simpleName = this.getClass().getName();
         int dotIdx = simpleName.lastIndexOf('.');
-        if (dotIdx != -1) simpleName = simpleName.substring(dotIdx + 1);
+        if (dotIdx != -1)
+            simpleName = simpleName.substring(dotIdx + 1);
         out.append(simpleName).append(" ");
-        out.append(MemSizeFormatter.formatSize(getEstimatedSize())).append(" ");
         out.append((double) getBuildTime() / 1000000).append(" secs (").append(getReuseHits()).append(")");
         return out.toString();
     }
 }
-

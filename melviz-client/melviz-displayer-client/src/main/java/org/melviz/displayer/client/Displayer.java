@@ -18,8 +18,6 @@ package org.melviz.displayer.client;
 import elemental2.dom.HTMLElement;
 import org.melviz.displayer.DisplayerConstraints;
 import org.melviz.displayer.DisplayerSettings;
-import org.melviz.displayer.client.export.ExportCallback;
-import org.melviz.displayer.client.export.ExportFormat;
 import org.melviz.displayer.client.formatter.ValueFormatter;
 
 /**
@@ -31,12 +29,14 @@ public interface Displayer extends DisplayerListener {
      * The data displayer to draw.
      */
     void setDisplayerSettings(DisplayerSettings displayerSettings);
+
     DisplayerSettings getDisplayerSettings();
 
     /**
      * The handler used to fetch and manipulate the data set.
      */
     void setDataSetHandler(DataSetHandler dataSetHandler);
+
     DataSetHandler getDataSetHandler();
 
     /**
@@ -87,18 +87,9 @@ public interface Displayer extends DisplayerListener {
     boolean isRefreshOn();
 
     /**
-     * Export the data being displayed into the specified output format.
-     *
-     * @param format The output format
-     * @param maxRows Max rows to be exported. If lower or equals to 0 then all rows will be exported.
-     * @param callback The callback instance to be notified
-     */
-    void export(ExportFormat format, int maxRows, ExportCallback callback);
-
-    /**
      * Frees any resource the displayer is consuming.
      */
     void close();
-    
-    HTMLElement getElement ();
+
+    HTMLElement getElement();
 }

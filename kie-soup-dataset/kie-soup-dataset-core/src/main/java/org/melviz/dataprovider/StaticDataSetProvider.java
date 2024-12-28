@@ -15,7 +15,6 @@
  */
 package org.melviz.dataprovider;
 
-import org.apache.commons.lang3.StringUtils;
 import org.melviz.dataset.DataSet;
 import org.melviz.dataset.DataSetLookup;
 import org.melviz.dataset.DataSetMetadata;
@@ -38,8 +37,7 @@ public class StaticDataSetProvider implements DataSetProvider {
 
     private SharedDataSetOpEngine dataSetOpEngine;
 
-    public StaticDataSetProvider() {
-    }
+    public StaticDataSetProvider() {}
 
     public StaticDataSetProvider(SharedDataSetOpEngine dataSetOpEngine) {
         this.dataSetOpEngine = dataSetOpEngine;
@@ -51,7 +49,8 @@ public class StaticDataSetProvider implements DataSetProvider {
 
     public DataSetMetadata getDataSetMetadata(DataSetDef def) {
         DataSet dataSet = lookupDataSet(def, null);
-        if (dataSet == null) return null;
+        if (dataSet == null)
+            return null;
         return dataSet.getMetadata();
     }
 
@@ -66,14 +65,17 @@ public class StaticDataSetProvider implements DataSetProvider {
 
     public DataSet lookupDataSet(DataSetDef def, DataSetLookup lookup) {
         String uuid = def.getUUID();
-        if (StringUtils.isEmpty(uuid)) return null;
+        if (uuid == null || uuid.isBlank())
+            return null;
         boolean isRoot = (lookup == null || lookup.isEmpty());
 
         // Be aware of filters on the data set definition
         DataSetFilter filter = def.getDataSetFilter();
         if (filter != null) {
-            if (lookup == null) lookup = new DataSetLookup(uuid, filter);
-            else lookup.addOperation(0, filter);
+            if (lookup == null)
+                lookup = new DataSetLookup(uuid, filter);
+            else
+                lookup.addOperation(0, filter);
         }
 
         // Lookup the data set (with any existing filters)
@@ -88,13 +90,16 @@ public class StaticDataSetProvider implements DataSetProvider {
     }
 
     public DataSet lookupDataSet(String uuid, DataSetLookup lookup) {
-        if (StringUtils.isEmpty(uuid)) return null;
+        if (uuid == null || uuid.isBlank())
+            return null;
 
         // Get the target data set
         DataSetIndex dataSetIndex = dataSetOpEngine.getIndexRegistry().get(uuid);
-        if (dataSetIndex == null) return null;
+        if (dataSetIndex == null)
+            return null;
         DataSet dataSet = dataSetIndex.getDataSet();
-        if (lookup == null) return dataSet;
+        if (lookup == null)
+            return dataSet;
 
         // Apply the list of operations specified (if any).
         if (!lookup.getOperationList().isEmpty()) {

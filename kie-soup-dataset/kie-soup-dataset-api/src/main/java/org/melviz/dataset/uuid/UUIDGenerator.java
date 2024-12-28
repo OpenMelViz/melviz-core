@@ -26,19 +26,4 @@ public interface UUIDGenerator {
      */
     String newUuid();
 
-    /**
-     * Creates a brand new UUID in base-64 and without characters forbidden in URLs (plus sign, equal, slash and ampersand)
-     * @return A 22 character length, base-64 and URL-safe string
-     */
-    String newUuidBase64();
-
-    /**
-     * Converts an un-encoded 36 character UUID to a base-64 and URL-safe string.
-     */
-    String uuidToBase64(String str);
-
-    /**
-     * Converts back a base-64 and URL-safe string to its original 36 character representation.
-     */
-    String uuidFromBase64(String str);
 }

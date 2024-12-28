@@ -28,7 +28,6 @@ import org.melviz.dataset.DataSetLookup;
 import org.melviz.dataset.DataSetOp;
 import org.melviz.dataset.DataSetOpType;
 import org.melviz.dataset.client.DataSetClientServices;
-import org.melviz.dataset.client.DataSetExportReadyCallback;
 import org.melviz.dataset.client.DataSetReadyCallback;
 import org.melviz.dataset.filter.DataSetFilter;
 import org.melviz.dataset.group.ColumnGroup;
@@ -39,8 +38,6 @@ import org.melviz.dataset.group.Interval;
 import org.melviz.dataset.sort.ColumnSort;
 import org.melviz.dataset.sort.DataSetSort;
 import org.melviz.dataset.sort.SortOrder;
-import org.melviz.displayer.client.export.ExportCallback;
-import org.melviz.displayer.client.export.ExportFormat;
 
 public class DataSetHandlerImpl implements DataSetHandler {
 
@@ -257,59 +254,6 @@ public class DataSetHandlerImpl implements DataSetHandler {
         result.setMinValue(column.getMinValue());
         result.setMaxValue(column.getMaxValue());
         return result;
-    }
-
-    @Override
-    public void exportCurrentDataSetLookup(ExportFormat format,
-                                           int maxRows,
-                                           ExportCallback callback,
-                                           Map<String, String> columnNameMap) {
-
-        // Export an empty data set does not make sense
-        if (lastLookedUpDataSet == null || lastLookedUpDataSet.getRowCount() == 0) {
-            callback.noData();
-            return;
-        }
-        // Ensure the entire dataset does not exceed the maximum export limit
-        int allRows = lastLookedUpDataSet.getRowCountNonTrimmed();
-        if (maxRows > 0 && allRows > maxRows) {
-            callback.tooManyRows(allRows);
-            return;
-        }
-        try {
-            // Create a backend export callback
-            DataSetExportReadyCallback exportReadyCallback = new DataSetExportReadyCallback() {
-
-                @Override
-                public void onError(ClientRuntimeError error) {
-                    callback.error(error);
-                }
-            };
-
-            // Export the entire data set
-            DataSetLookup exportLookup = getCurrentDataSetLookup().cloneInstance();
-            exportLookup.setRowOffset(0);
-            exportLookup.setNumberOfRows(maxRows);
-
-            // Make sure the column names are set as specified
-            if (exportLookup.getLastGroupOp() != null && columnNameMap != null) {
-                for (GroupFunction groupFunction : exportLookup.getLastGroupOp().getGroupFunctions()) {
-                    String columnId = groupFunction.getColumnId();
-                    if (columnNameMap.containsKey(columnId)) {
-                        String columnName = columnNameMap.get(columnId);
-                        groupFunction.setColumnId(columnName);
-                    }
-                }
-            }
-
-            if (ExportFormat.XLS.equals(format)) {
-                clientServices.exportDataSetExcel(exportLookup, exportReadyCallback);
-            } else {
-                clientServices.exportDataSetCSV(exportLookup, exportReadyCallback);
-            }
-        } catch (Exception e) {
-            callback.error(new ClientRuntimeError(e));
-        }
     }
 
     // Internal filter/drillDown implementation logic

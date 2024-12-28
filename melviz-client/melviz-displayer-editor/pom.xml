@@ -76,6 +76,10 @@ under the License.
 					<artifactId>commons-logging</artifactId>
 					<groupId>commons-logging</groupId>
 				</exclusion>
+				<exclusion>
+				  <groupId>org.mortbay.jasper</groupId>
+				  <artifactId>apache-el</artifactId>
+				</exclusion>
 			</exclusions>
 		</dependency>
 	</dependencies>

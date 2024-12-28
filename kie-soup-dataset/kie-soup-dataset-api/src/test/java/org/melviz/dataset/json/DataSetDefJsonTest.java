@@ -14,10 +14,6 @@
 */
 package org.melviz.dataset.json;
 
-import java.io.InputStream;
-import java.io.StringWriter;
-
-import org.apache.commons.io.IOUtils;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -37,7 +33,7 @@ public class DataSetDefJsonTest {
     private static final DataSetProviderType CUSTOM_PROVIDER_TYPE = new DefaultProviderType("CUSTOM");
 
     DataSetDefJSONMarshaller jsonMarshaller;
-    
+
     @Before
     public void init() {
         jsonMarshaller = new DataSetDefJSONMarshaller(CUSTOM_PROVIDER_TYPE);
@@ -91,19 +87,8 @@ public class DataSetDefJsonTest {
     }
 
     protected static String getFileAsString(String file) throws Exception {
-        InputStream mappingsFileUrl = Thread.currentThread().getContextClassLoader().getResourceAsStream(file);
-        StringWriter writer = null;
-        String fileContent = null;
-
-        try {
-            writer = new StringWriter();
-            IOUtils.copy(mappingsFileUrl, writer, UTF_8);
-            fileContent = writer.toString();
-        } finally {
-            if (writer != null)
-                writer.close();
-        }
-
+        var mappingsFileUrl = Thread.currentThread().getContextClassLoader().getResourceAsStream(file);
+        var fileContent = new String(mappingsFileUrl.readAllBytes());
         // Ensure newline characters meet the HTTP specification formatting requirements.
         return fileContent.replaceAll("\n", "\r\n");
     }

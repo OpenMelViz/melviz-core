@@ -15,8 +15,6 @@
  */
 package org.melviz.displayer.client;
 
-import java.util.Map;
-
 import org.melviz.dataset.DataSet;
 import org.melviz.dataset.DataSetLookup;
 import org.melviz.dataset.client.DataSetReadyCallback;
@@ -24,8 +22,6 @@ import org.melviz.dataset.filter.DataSetFilter;
 import org.melviz.dataset.group.DataSetGroup;
 import org.melviz.dataset.group.Interval;
 import org.melviz.dataset.sort.SortOrder;
-import org.melviz.displayer.client.export.ExportCallback;
-import org.melviz.displayer.client.export.ExportFormat;
 
 /**
  * Interface addressed to issue lookup requests over a data set instance.
@@ -150,13 +146,4 @@ public interface DataSetHandler {
      */
     DataSetLookup getCurrentDataSetLookup();
 
-    /**
-     * Export the current data set to a file in the specified output format.
-     *
-     * @param format The output format
-     * @param maxRows Max rows to be exported.
-     * @param callback The callback instance to be notified
-     * @param columnNameMap A map containing the column header names for every column in the data set lookup
-     */
-    void exportCurrentDataSetLookup(ExportFormat format, int maxRows, ExportCallback callback, Map<String,String> columnNameMap);
 }

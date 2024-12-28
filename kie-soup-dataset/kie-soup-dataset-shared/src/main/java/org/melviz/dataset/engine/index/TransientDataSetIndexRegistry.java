@@ -25,7 +25,7 @@ import org.melviz.dataset.uuid.UUIDGenerator;
 public class TransientDataSetIndexRegistry implements DataSetIndexRegistry {
 
     protected UUIDGenerator uuidGenerator;
-    protected Map<String,DataSetIndex> indexMap = new HashMap<String, DataSetIndex>();
+    protected Map<String, DataSetIndex> indexMap = new HashMap<String, DataSetIndex>();
 
     public TransientDataSetIndexRegistry(UUIDGenerator uuidGenerator) {
         this.uuidGenerator = uuidGenerator;
@@ -37,7 +37,7 @@ public class TransientDataSetIndexRegistry implements DataSetIndexRegistry {
         }
         String uuid = dataSet.getUUID();
         if (uuid == null || uuid.length() == 0) {
-            uuid = uuidGenerator.newUuidBase64();
+            uuid = uuidGenerator.newUuid();
             dataSet.setUUID(uuid);
         }
 
@@ -58,4 +58,3 @@ public class TransientDataSetIndexRegistry implements DataSetIndexRegistry {
         return indexMap.remove(uuid);
     }
 }
-

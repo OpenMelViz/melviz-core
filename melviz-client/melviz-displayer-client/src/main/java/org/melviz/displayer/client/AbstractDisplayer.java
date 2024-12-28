@@ -45,8 +45,6 @@ import org.melviz.dataset.sort.SortOrder;
 import org.melviz.displayer.ColumnSettings;
 import org.melviz.displayer.DisplayerConstraints;
 import org.melviz.displayer.DisplayerSettings;
-import org.melviz.displayer.client.export.ExportCallback;
-import org.melviz.displayer.client.export.ExportFormat;
 import org.melviz.displayer.client.formatter.ValueFormatter;
 import org.uberfire.client.mvp.UberElemental;
 
@@ -968,20 +966,6 @@ public abstract class AbstractDisplayer<V extends AbstractDisplayer.View> implem
     protected Date parseDynamicGroupDate(DateIntervalType type, String date) {
         String pattern = DateIntervalPattern.getPattern(type);
         return getFormatter().parseDate(pattern, date);
-    }
-
-    // EXPORT
-
-    @Override
-    public void export(ExportFormat format, int maxRows, ExportCallback callback) {
-        if (dataSetHandler == null) {
-            callback.noData();
-        } else {
-            Map<String, String> columnNameMap = new HashMap<>();
-            displayerSettings.getColumnSettingsList().forEach(cs -> columnNameMap.put(cs.getColumnId(), cs
-                    .getColumnName()));
-            dataSetHandler.exportCurrentDataSetLookup(format, maxRows, callback, columnNameMap);
-        }
     }
 
     protected String evaluateValueToString(Object mightBeNull, ColumnSettings settings) {

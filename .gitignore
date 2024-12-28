@@ -38,6 +38,7 @@ packages/melviz/melviz-runtime-parent/melviz-runtime-client/src/main/webapp/melv
 **/.apt_generated/
 **/.apt_generated_tests/
 packages/melviz/**/.checkstyle
+**/.checkstyle
 
 
 #maven

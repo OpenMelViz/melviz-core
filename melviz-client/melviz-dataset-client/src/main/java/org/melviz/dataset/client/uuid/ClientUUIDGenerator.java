@@ -27,15 +27,4 @@ public class ClientUUIDGenerator implements UUIDGenerator {
         return Document.get().createUniqueId();
     }
 
-    public String newUuidBase64() {
-        return Document.get().createUniqueId();
-    }
-
-    public String uuidToBase64(String str) {
-        return str;
-    }
-
-    public String uuidFromBase64(String str) {
-        return str;
-    }
 }

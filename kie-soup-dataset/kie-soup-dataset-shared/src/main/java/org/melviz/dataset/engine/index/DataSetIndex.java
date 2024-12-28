@@ -16,7 +16,6 @@
 package org.melviz.dataset.engine.index;
 
 import org.melviz.dataset.DataSet;
-import org.melviz.dataset.engine.index.stats.DataSetIndexStats;
 
 /**
  * A DataSet index
@@ -28,9 +27,4 @@ public abstract class DataSetIndex extends DataSetIndexNode {
      */
     public abstract DataSet getDataSet();
 
-    /**
-     * Get the performance stats of this index.
-     */
-    public abstract DataSetIndexStats getStats();
 }
-
