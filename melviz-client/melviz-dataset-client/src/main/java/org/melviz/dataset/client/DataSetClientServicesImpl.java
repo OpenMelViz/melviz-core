@@ -46,8 +46,6 @@ import org.melviz.dataset.group.AggregateFunctionManager;
 import org.melviz.dataset.service.DataSetDefServices;
 import org.melviz.dataset.service.DataSetLookupServices;
 
-import static org.kie.soup.commons.validation.PortablePreconditions.checkNotNull;
-
 /**
  * Default implementation
  */
@@ -382,8 +380,6 @@ public class DataSetClientServicesImpl implements DataSetClientServices {
     // Classes for the handling of concurrent lookup requests over any push-able data set
 
     private void onDataSetStaleEvent(@Observes DataSetStaleEvent event) {
-        checkNotNull("event",
-                event);
         String uuid = event.getDataSetDef().getUUID();
 
         // Remove any stale data existing on the client.
@@ -397,8 +393,6 @@ public class DataSetClientServicesImpl implements DataSetClientServices {
     }
 
     private void onDataSetRemovedEvent(@Observes DataSetDefRemovedEvent event) {
-        checkNotNull("event",
-                event);
         String uuid = event.getDataSetDef().getUUID();
         clientDataSetManager.removeDataSet(uuid);
         remoteMetadataMap.remove(uuid);

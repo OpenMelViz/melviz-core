@@ -27,7 +27,6 @@ import org.melviz.dataset.events.DataSetPushingEvent;
 import org.melviz.dataset.service.DataSetDefServices;
 import org.melviz.dataset.service.DataSetLookupServices;
 import org.mockito.Mock;
-import org.uberfire.mocks.CallerMock;
 
 public abstract class AbstractDataSetTest {
 
@@ -66,7 +65,6 @@ public abstract class AbstractDataSetTest {
     }
 
     public void initDataSetClientServices() {
-        dataSetLookupServicesCaller = new CallerMock<>(dataSetLookupServices);
         clientServices = new DataSetClientServicesImpl(
                 clientDataSetManager,
                 clientDataSetCore.getAggregateFunctionManager(),
@@ -91,7 +89,6 @@ public abstract class AbstractDataSetTest {
         initDataSetClientServices();
         registerExpensesDataSet();
     }
-
 
     public void printDataSet(DataSet dataSet) {
         System.out.print(dataSetFormatter.formatDataSet(dataSet, "{", "}", ",\n", "\"", "\"", ", ") + "\n\n");

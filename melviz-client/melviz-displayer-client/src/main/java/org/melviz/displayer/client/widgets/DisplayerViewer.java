@@ -15,6 +15,7 @@
  */
 package org.melviz.displayer.client.widgets;
 
+import java.util.Objects;
 import java.util.function.Consumer;
 
 import javax.annotation.PreDestroy;
@@ -32,8 +33,6 @@ import org.melviz.displayer.client.Displayer;
 import org.melviz.displayer.client.DisplayerListener;
 import org.melviz.displayer.client.DisplayerLocator;
 import org.melviz.displayer.client.resources.i18n.CommonConstants;
-
-import static org.kie.soup.commons.validation.PortablePreconditions.checkNotNull;
 
 @Dependent
 public class DisplayerViewer {
@@ -89,8 +88,7 @@ public class DisplayerViewer {
         container = (HTMLElement) DomGlobal.document.createElement("div");
         try {
             // Lookup the displayer
-            checkNotNull("displayerSettings",
-                    displayerSettings);
+            Objects.requireNonNull(displayerSettings);
             this.displayerSettings = displayerSettings;
             this.displayer = displayerLocator.lookupDisplayer(displayerSettings);
             this.displayer.addListener(displayerListener);
