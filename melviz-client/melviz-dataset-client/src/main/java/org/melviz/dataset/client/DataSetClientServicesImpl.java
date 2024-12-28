@@ -41,7 +41,6 @@ import org.melviz.dataset.events.DataSetDefRemovedEvent;
 import org.melviz.dataset.events.DataSetModifiedEvent;
 import org.melviz.dataset.events.DataSetPushOkEvent;
 import org.melviz.dataset.events.DataSetPushingEvent;
-import org.melviz.dataset.events.DataSetStaleEvent;
 import org.melviz.dataset.group.AggregateFunctionManager;
 import org.melviz.dataset.service.DataSetDefServices;
 import org.melviz.dataset.service.DataSetLookupServices;
@@ -378,19 +377,6 @@ public class DataSetClientServicesImpl implements DataSetClientServices {
     }
 
     // Classes for the handling of concurrent lookup requests over any push-able data set
-
-    private void onDataSetStaleEvent(@Observes DataSetStaleEvent event) {
-        String uuid = event.getDataSetDef().getUUID();
-
-        // Remove any stale data existing on the client.
-        // This will force next lookup requests to push a refreshed data set.
-        clientDataSetManager.removeDataSet(uuid);
-        remoteMetadataMap.remove(uuid);
-
-        // If a data set has been updated on the sever then fire an event.
-        // In this case the notification is always send, no matter whether the data set is pushed to the client or not.
-        dataSetModifiedEvent.fire(new DataSetModifiedEvent(event.getDataSetDef()));
-    }
 
     private void onDataSetRemovedEvent(@Observes DataSetDefRemovedEvent event) {
         String uuid = event.getDataSetDef().getUUID();
