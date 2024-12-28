@@ -4,8 +4,8 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.stream.Collectors;
 
-import org.apache.commons.lang3.StringUtils;
 import org.melviz.dataset.DataColumn;
 import org.melviz.dataset.group.DateIntervalPattern;
 import org.melviz.dataset.group.DateIntervalType;
@@ -13,7 +13,7 @@ import org.melviz.dataset.group.GroupStrategy;
 
 public class DateUtils {
 
-    public static final SimpleDateFormat FORMATTER_YEAR  = new SimpleDateFormat(DateIntervalPattern.YEAR);
+    public static final SimpleDateFormat FORMATTER_YEAR = new SimpleDateFormat(DateIntervalPattern.YEAR);
     public static final SimpleDateFormat FORMATTER_MONTH = new SimpleDateFormat(DateIntervalPattern.MONTH);
     public static final SimpleDateFormat FORMATTER_DAY = new SimpleDateFormat(DateIntervalPattern.DAY);
     public static final SimpleDateFormat FORMATTER_HOUR = new SimpleDateFormat(DateIntervalPattern.HOUR);
@@ -38,7 +38,8 @@ public class DateUtils {
     }
 
     public static Date parseDate(DateIntervalType type, GroupStrategy strategy, Object date) throws Exception {
-        if (date == null) return null;
+        if (date == null)
+            return null;
 
         // Fixed grouping
         if (GroupStrategy.FIXED.equals(strategy)) {
@@ -61,18 +62,19 @@ public class DateUtils {
                 return c.getTime();
             }
             if (DateIntervalType.MONTH.equals(type)) {
-                c.set(Calendar.MONTH, ((Number) date).intValue()-1);
+                c.set(Calendar.MONTH, ((Number) date).intValue() - 1);
                 c.set(Calendar.DAY_OF_MONTH, 1);
                 return c.getTime();
             }
             if (DateIntervalType.QUARTER.equals(type)) {
-                c.set(Calendar.MONTH, ((Number) date).intValue()-1);
+                c.set(Calendar.MONTH, ((Number) date).intValue() - 1);
                 c.set(Calendar.DAY_OF_MONTH, 1);
                 return c.getTime();
             }
             throw new IllegalArgumentException("Interval size '" + type + "' not supported for " +
                     "fixed date intervals. The only supported sizes are: " +
-                    StringUtils.join(DateIntervalType.FIXED_INTERVALS_SUPPORTED, ","));
+                    DateIntervalType.FIXED_INTERVALS_SUPPORTED.stream().map(Object::toString).collect(Collectors
+                            .joining(",")));
         }
 
         // Dynamic grouping
@@ -116,18 +118,20 @@ public class DateUtils {
 
     public static String ensureTwoDigits(String date, String symbolStart, String symbolEnd) {
         int start = date.indexOf(symbolStart);
-        if (start == -1) return date;
+        if (start == -1)
+            return date;
 
-        int digitStart = start+symbolStart.length();
+        int digitStart = start + symbolStart.length();
         int end = date.indexOf(symbolEnd, digitStart);
-        if (end == -1) end = date.length();
+        if (end == -1)
+            end = date.length();
 
         StringBuilder out = new StringBuilder();
         out.append(date.substring(0, start)).append(symbolStart.charAt(0));
-        if (end-digitStart == 1) {
+        if (end - digitStart == 1) {
             char digit = date.charAt(digitStart);
             out.append('0').append(digit);
-            out.append(date.substring(digitStart+1));
+            out.append(date.substring(digitStart + 1));
         } else {
             out.append(date.substring(digitStart));
         }

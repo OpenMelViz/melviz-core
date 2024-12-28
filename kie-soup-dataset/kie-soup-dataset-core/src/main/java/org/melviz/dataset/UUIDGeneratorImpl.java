@@ -15,10 +15,8 @@
  */
 package org.melviz.dataset;
 
-import java.nio.ByteBuffer;
 import java.util.UUID;
 
-import org.apache.commons.codec.binary.Base64;
 import org.melviz.dataset.uuid.UUIDGenerator;
 
 /**
@@ -31,23 +29,4 @@ public class UUIDGeneratorImpl implements UUIDGenerator {
         return uuid.toString();
     }
 
-    public String newUuidBase64() {
-        String uuidStr = newUuid();
-        return uuidToBase64(uuidStr);
-    }
-
-    public String uuidToBase64(String str) {
-        UUID uuid = UUID.fromString(str);
-        ByteBuffer bb = ByteBuffer.wrap(new byte[16]);
-        bb.putLong(uuid.getMostSignificantBits());
-        bb.putLong(uuid.getLeastSignificantBits());
-        return Base64.encodeBase64URLSafeString(bb.array());
-    }
-
-    public String uuidFromBase64(String str) {
-        byte[] bytes = Base64.decodeBase64(str);
-        ByteBuffer bb = ByteBuffer.wrap(bytes);
-        UUID uuid = new UUID(bb.getLong(), bb.getLong());
-        return uuid.toString();
-    }
 }

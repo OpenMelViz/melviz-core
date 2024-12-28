@@ -23,7 +23,6 @@ import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Locale;
 
-import org.apache.commons.lang3.StringUtils;
 import org.melviz.dataset.date.Quarter;
 import org.melviz.dataset.engine.DataSetHandler;
 import org.melviz.dataset.engine.group.IntervalBuilder;
@@ -84,7 +83,7 @@ public class IntervalBuilderDynamicDate implements IntervalBuilder {
         for (int i = 0; minDate == null && i < sortedValues.size(); i++) {
             minDate = (Date) sortedValues.get(i);
         }
-        for (int i = sortedValues.size()-1; maxDate == null && i >= 0; i--) {
+        for (int i = sortedValues.size() - 1; maxDate == null && i >= 0; i--) {
             maxDate = (Date) sortedValues.get(i);
         }
 
@@ -93,7 +92,8 @@ public class IntervalBuilderDynamicDate implements IntervalBuilder {
         if (minDate == null || minDate.compareTo(maxDate) == 0) {
 
             IntervalDateRange interval = new IntervalDateRange(0, intervalType, minDate, maxDate);
-            for (int row = 0; row < sortedValues.size(); row++) interval.getRows().add(row);
+            for (int row = 0; row < sortedValues.size(); row++)
+                interval.getRows().add(row);
 
             results.add(interval);
             results.setIntervalType(columnGroup.getIntervalSize());
@@ -112,7 +112,8 @@ public class IntervalBuilderDynamicDate implements IntervalBuilder {
             // Create the next interval
             nextIntervalDate(c, intervalType, 1);
             Date intervalMaxDate = c.getTime();
-            IntervalDateRange interval = new IntervalDateRange(counter++, intervalType, intervalMinDate, intervalMaxDate);
+            IntervalDateRange interval = new IntervalDateRange(counter++, intervalType, intervalMinDate,
+                    intervalMaxDate);
             results.add(interval);
 
             // Add the target rows
@@ -137,7 +138,8 @@ public class IntervalBuilderDynamicDate implements IntervalBuilder {
 
         // Reverse intervals if requested
         boolean asc = columnGroup.isAscendingOrder();
-        if (!asc) Collections.reverse( results );
+        if (!asc)
+            Collections.reverse(results);
 
         // Return the results
         results.setIntervalType(intervalType.toString());
@@ -167,13 +169,15 @@ public class IntervalBuilderDynamicDate implements IntervalBuilder {
             // Create the next interval
             nextIntervalDate(c, intervalType, 1);
             Date intervalMaxDate = c.getTime();
-            IntervalDateRange interval = new IntervalDateRange(counter++, intervalType, intervalMinDate, intervalMaxDate);
+            IntervalDateRange interval = new IntervalDateRange(counter++, intervalType, intervalMinDate,
+                    intervalMaxDate);
             results.add(interval);
         }
 
         // Reverse intervals if requested
         boolean asc = columnGroup.isAscendingOrder();
-        if (!asc) Collections.reverse( results );
+        if (!asc)
+            Collections.reverse(results);
 
         // Return the results
         results.setIntervalType(intervalType.toString());
@@ -200,7 +204,8 @@ public class IntervalBuilderDynamicDate implements IntervalBuilder {
 
         // Calculate the interval type used according to the constraints set.
         int maxIntervals = columnGroup.getMaxIntervals();
-        if (maxIntervals < 1) maxIntervals = 15;
+        if (maxIntervals < 1)
+            maxIntervals = 15;
         for (DateIntervalType type : values()) {
             long nintervals = millis / getDurationInMillis(type);
             if (nintervals < maxIntervals) {
@@ -211,7 +216,7 @@ public class IntervalBuilderDynamicDate implements IntervalBuilder {
 
         // Ensure the interval mode obtained is always greater or equals than the preferred interval size.
         DateIntervalType intervalSize = null;
-        if (!StringUtils.isBlank(columnGroup.getIntervalSize())) {
+        if (columnGroup.getIntervalSize() != null && !columnGroup.getIntervalSize().isBlank()) {
             intervalSize = getByName(columnGroup.getIntervalSize());
         }
         if (intervalSize != null && compare(intervalType, intervalSize) == -1) {
@@ -275,38 +280,27 @@ public class IntervalBuilderDynamicDate implements IntervalBuilder {
 
         if (MILLENIUM.equals(intervalType)) {
             c.add(Calendar.YEAR, 1000 * intervals);
-        }
-        else if (CENTURY.equals(intervalType)) {
+        } else if (CENTURY.equals(intervalType)) {
             c.add(Calendar.YEAR, 100 * intervals);
-        }
-        else if (DECADE.equals(intervalType)) {
+        } else if (DECADE.equals(intervalType)) {
             c.add(Calendar.YEAR, 10 * intervals);
-        }
-        else if (YEAR.equals(intervalType)) {
+        } else if (YEAR.equals(intervalType)) {
             c.add(Calendar.YEAR, intervals);
-        }
-        else if (QUARTER.equals(intervalType)) {
+        } else if (QUARTER.equals(intervalType)) {
             c.add(Calendar.MONTH, 3 * intervals);
-        }
-        else if (MONTH.equals(intervalType)) {
+        } else if (MONTH.equals(intervalType)) {
             c.add(Calendar.MONTH, intervals);
-        }
-        else if (WEEK.equals(intervalType)) {
+        } else if (WEEK.equals(intervalType)) {
             c.add(Calendar.DAY_OF_MONTH, 7 * intervals);
-        }
-        else if (DAY.equals(intervalType) || DAY_OF_WEEK.equals(intervalType)) {
+        } else if (DAY.equals(intervalType) || DAY_OF_WEEK.equals(intervalType)) {
             c.add(Calendar.DAY_OF_MONTH, intervals);
-        }
-        else if (HOUR.equals(intervalType)) {
+        } else if (HOUR.equals(intervalType)) {
             c.add(Calendar.HOUR_OF_DAY, intervals);
-        }
-        else if (MINUTE.equals(intervalType)) {
+        } else if (MINUTE.equals(intervalType)) {
             c.add(Calendar.MINUTE, intervals);
-        }
-        else if (SECOND.equals(intervalType)) {
+        } else if (SECOND.equals(intervalType)) {
             c.add(Calendar.SECOND, intervals);
-        }
-        else {
+        } else {
             // Default to year to avoid infinite loops
             c.add(Calendar.YEAR, intervals);
         }
@@ -325,7 +319,8 @@ public class IntervalBuilderDynamicDate implements IntervalBuilder {
             Date d = (Date) value;
             for (Interval interval : this) {
                 IntervalDateRange dateRange = (IntervalDateRange) interval;
-                if (d.equals(dateRange.getMinDate()) || (d.after(dateRange.getMinDate()) && d.before(dateRange.getMaxDate()))) {
+                if (d.equals(dateRange.getMinDate()) || (d.after(dateRange.getMinDate()) && d.before(dateRange
+                        .getMaxDate()))) {
                     return interval;
                 }
             }
@@ -356,12 +351,13 @@ public class IntervalBuilderDynamicDate implements IntervalBuilder {
     }
 
     public static String calculateName(DateIntervalType intervalType, Date d) {
-        if (d == null) return null;
+        if (d == null)
+            return null;
 
         Locale l = Locale.getDefault();
-        if (MILLENIUM.equals(intervalType) || CENTURY.equals(intervalType)
-                || DECADE.equals(intervalType) || YEAR.equals(intervalType)) {
-            SimpleDateFormat format  = new SimpleDateFormat("yyyy", l);
+        if (MILLENIUM.equals(intervalType) || CENTURY.equals(intervalType) || DECADE.equals(intervalType) || YEAR
+                .equals(intervalType)) {
+            SimpleDateFormat format = new SimpleDateFormat("yyyy", l);
             return format.format(d);
         }
         if (QUARTER.equals(intervalType) || MONTH.equals(intervalType)) {

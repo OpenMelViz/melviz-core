@@ -23,9 +23,9 @@ import java.net.URLConnection;
 import java.nio.charset.StandardCharsets;
 import java.time.Instant;
 import java.time.format.DateTimeFormatter;
+import java.util.Base64;
 import java.util.Date;
 
-import org.apache.commons.codec.binary.Base64;
 import org.melviz.dataprovider.external.ExternalDataSetSecurityStore.SecurityInfo;
 import org.melviz.dataprovider.external.ExternalDataSetSecurityStore.SecurityType;
 import org.melviz.dataset.DataSet;
@@ -131,8 +131,8 @@ public class ExternalDataSetCaller {
     protected void addSecurity(HttpURLConnection conn, SecurityInfo secInfo) {
         if (secInfo.getType() == SecurityType.BASIC) {
             var auth = secInfo.getUsername() + ":" + secInfo.getPassword();
-            var encodedAuth = Base64.encodeBase64(auth.getBytes(StandardCharsets.UTF_8));
-            conn.setRequestProperty(AUTHORIZATION_HEADER, BASIC + " " + new String(encodedAuth));
+            var encodedAuth = Base64.getEncoder().encodeToString(auth.getBytes(StandardCharsets.UTF_8));
+            conn.setRequestProperty(AUTHORIZATION_HEADER, BASIC + " " + encodedAuth);
         }
 
         if (secInfo.getType() == SecurityType.TOKEN) {
