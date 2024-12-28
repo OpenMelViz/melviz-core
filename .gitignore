@@ -23,7 +23,7 @@
 
 **/.errai
 
-melviz-runtime-parent/melviz-runtime-client/src/main/webapp/WEB-INF/classes
+**/WEB-INF/classes/
 packages/melviz/**/org.uberfire
 packages/melviz/**/org.melviz
 packages/melviz/**/WEB-INF/classes/

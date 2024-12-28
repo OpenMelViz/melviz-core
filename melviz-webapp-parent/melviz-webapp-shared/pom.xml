@@ -23,16 +23,16 @@
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>org.melviz</groupId>
-    <artifactId>melviz-runtime-parent</artifactId>
+    <artifactId>melviz-webapp-parent</artifactId>
     <version>1.0-SNAPSHOT</version>
     <relativePath>../pom.xml</relativePath>
   </parent>
 
-  <artifactId>melviz-runtime-shared</artifactId>
+  <artifactId>melviz-webapp-shared</artifactId>
   <packaging>jar</packaging>
 
-  <name>Melviz Runtime - Shared</name>
-  <description>Melviz Runtime for running standalone dashboards</description>
+  <name>Melviz WebApp - Shared</name>
+  <description>Melviz WebApp for running dashboards</description>
 
   <dependencies>
     <dependency>

@@ -16,16 +16,16 @@
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>org.melviz</groupId>
-    <artifactId>melviz-runtime-parent</artifactId>
+    <artifactId>melviz-webapp-parent</artifactId>
     <version>1.0-SNAPSHOT</version>
     <relativePath>../pom.xml</relativePath>
   </parent>
 
-  <artifactId>melviz-runtime-client</artifactId>
+  <artifactId>melviz-webapp</artifactId>
   <packaging>war</packaging>
 
-  <name>Melviz Runtime - Client</name>
-  <description>Melviz Runtime for running standalone dashboards</description>
+  <name>Melviz WebApp</name>
+  <description>Melviz WebApp running dashboards</description>
 
   <properties>
     <!-- Add the absolute path for $JBOSS_HOME below to manage another instance -->
