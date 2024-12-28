@@ -1,7 +1,5 @@
 package org.melviz.dataset.def;
 
-import javax.validation.constraints.NotNull;
-
 import org.melviz.dataset.ColumnType;
 
 /**
@@ -9,13 +7,10 @@ import org.melviz.dataset.ColumnType;
  */
 public class DataColumnDef {
 
-    @NotNull()
     private String id;
-    @NotNull()
     private ColumnType columnType;
 
-    public DataColumnDef() {
-    }
+    public DataColumnDef() {}
 
     public DataColumnDef(String id, ColumnType columnType) {
         this.id = id;
@@ -40,8 +35,10 @@ public class DataColumnDef {
 
     @Override
     public boolean equals(Object obj) {
-        if (obj == null) return false;
-        if (getId() == null) return false;
+        if (obj == null)
+            return false;
+        if (getId() == null)
+            return false;
 
         try {
             DataColumnDef d = (DataColumnDef) obj;
@@ -52,6 +49,6 @@ public class DataColumnDef {
     }
 
     public DataColumnDef clone() {
-        return  new DataColumnDef(id, ColumnType.getByName(columnType.name()));
+        return new DataColumnDef(id, ColumnType.getByName(columnType.name()));
     }
 }
