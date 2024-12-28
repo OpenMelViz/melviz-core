@@ -23,20 +23,10 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 
-import javax.validation.constraints.Max;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-
 import org.melviz.dataprovider.DataSetProviderType;
 import org.melviz.dataset.ColumnType;
 import org.melviz.dataset.date.TimeAmount;
 import org.melviz.dataset.filter.DataSetFilter;
-import org.melviz.dataset.validation.IsTimeInterval;
-import org.melviz.dataset.validation.groups.DataSetDefBasicAttributesGroup;
-import org.melviz.dataset.validation.groups.DataSetDefCacheRowsValidation;
-import org.melviz.dataset.validation.groups.DataSetDefProviderTypeGroup;
-import org.melviz.dataset.validation.groups.DataSetDefPushSizeValidation;
-import org.melviz.dataset.validation.groups.DataSetDefRefreshIntervalValidation;
 
 import static org.melviz.dataset.json.DataSetDefJSONMarshaller.isBlank;
 
@@ -45,15 +35,10 @@ import static org.melviz.dataset.json.DataSetDefJSONMarshaller.isBlank;
  */
 public class DataSetDef {
 
-    @NotNull(groups = {DataSetDefBasicAttributesGroup.class})
-    @Size(min = 1, groups = {DataSetDefBasicAttributesGroup.class})
     protected String UUID;
 
-    @NotNull(groups = {DataSetDefBasicAttributesGroup.class})
-    @Size(min = 1, groups = {DataSetDefBasicAttributesGroup.class})
     protected String name;
 
-    @NotNull(groups = { DataSetDefProviderTypeGroup.class})
     protected DataSetProviderType provider;
 
     // Cannot @Valid due to this GWT issue https://github.com/gwtproject/gwt/issues/8816.
@@ -63,22 +48,15 @@ public class DataSetDef {
     protected DataSetFilter dataSetFilter = null;
     protected boolean isPublic = true;
     protected boolean pushEnabled = false;
-    @NotNull(groups = {DataSetDefPushSizeValidation.class})
-    @Max(value = 4096)
     protected Integer pushMaxSize = 1024;
     protected boolean cacheEnabled = false;
-    @NotNull(groups = {DataSetDefCacheRowsValidation.class})
-    @Max(value = 10000)
     protected Integer cacheMaxRows = 1000;
-    @NotNull(groups = {DataSetDefRefreshIntervalValidation.class})
-    @Size(min = 1, groups = {DataSetDefRefreshIntervalValidation.class})
-    @IsTimeInterval(groups = {DataSetDefRefreshIntervalValidation.class})
     protected String refreshTime = null;
     protected boolean refreshAlways = false;
     protected boolean allColumnsEnabled = true;
 
-    protected Map<String,String> patternMap = new HashMap<>();
-    protected Map<String,String> propertyMap = new HashMap<>();
+    protected Map<String, String> patternMap = new HashMap<>();
+    protected Map<String, String> propertyMap = new HashMap<>();
 
     public String getUUID() {
         return UUID;
@@ -102,7 +80,8 @@ public class DataSetDef {
 
     public void setDataSetFilter(DataSetFilter dataSetFilter) {
         this.dataSetFilter = dataSetFilter;
-        if (dataSetFilter != null) this.dataSetFilter.setDataSetUUID(UUID);
+        if (dataSetFilter != null)
+            this.dataSetFilter.setDataSetUUID(UUID);
     }
 
     public DataSetProviderType getProvider() {
@@ -204,11 +183,11 @@ public class DataSetDef {
         if (id != null && columns != null && !columns.isEmpty()) {
             for (final DataColumnDef columnDef : columns) {
                 if (columnDef.getId().equalsIgnoreCase(id)) {
-                    return  columnDef;
+                    return columnDef;
                 }
             }
         }
-        return  null;
+        return null;
     }
 
     public boolean addColumn(final String id, final ColumnType type) {
@@ -229,7 +208,7 @@ public class DataSetDef {
     public void setProperty(String key, String value) {
         propertyMap.put(key, value);
     }
-    
+
     public void validate() {
         if (isBlank(UUID)) {
             throw new IllegalArgumentException("UUID is a required field in data sets");
@@ -301,7 +280,7 @@ public class DataSetDef {
             if (pushEnabled != other.pushEnabled) {
                 return false;
             }
-            if (pushMaxSize != null && !pushMaxSize .equals(other.pushMaxSize )) {
+            if (pushMaxSize != null && !pushMaxSize.equals(other.pushMaxSize)) {
                 return false;
             }
             if (cacheEnabled != other.cacheEnabled) {
