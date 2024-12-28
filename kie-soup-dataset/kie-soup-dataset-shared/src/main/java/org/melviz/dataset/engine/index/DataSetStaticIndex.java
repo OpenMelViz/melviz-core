@@ -16,8 +16,6 @@
 package org.melviz.dataset.engine.index;
 
 import org.melviz.dataset.DataSet;
-import org.melviz.dataset.engine.index.stats.DataSetIndexStats;
-import org.melviz.dataset.engine.index.stats.DataSetIndexStatsImpl;
 
 /**
  * An index for static data sets.
@@ -35,8 +33,4 @@ public class DataSetStaticIndex extends DataSetIndex {
         return dataSet;
     }
 
-    public DataSetIndexStats getStats() {
-        return new DataSetIndexStatsImpl(this);
-    }
 }
-
