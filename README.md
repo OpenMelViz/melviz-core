@@ -1,4 +1,5 @@
 # Melviz Core
+[![Build Melviz and Upload Artifacts](https://github.com/OpenMelViz/melviz-core/actions/workflows/maven.yml/badge.svg)](https://github.com/OpenMelViz/melviz-core/actions/workflows/maven.yml)
 
 Melviz is a tool to visualize data visualizations, dashboards and reports built using YAML.
 
