@@ -14,13 +14,12 @@
   limitations under the License.
 -->
 <div id="componentRoot" style="width: 100%; height: 100%">
-  <div data-field="configurationIssueRoot" class="configuration-issue-message-box">
-    <div class="card-pf-heading">
-      <span class="pficon pficon-warning-triangle-o configuration-error-title-icon"></span
-      ><span class="card-pf-title" data-i18n-key="configurationIssueTitle"></span>
+    <div class="pf-v5-c-card pf-m-compact pf-m-rounded" data-field="configurationIssueRoot"  class="configuration-issue-message-box">
+      <div class="pf-v5-c-card__title">
+        <span class="fas fa-exclamation-triangle displayer-error-title-icon"></span
+        ><span class="card-pf-title" data-i18n-key="configurationIssueTitle"> </span>
+      </div>
+      <div class="pf-v5-c-card__body" data-field="configurationDetails" class="externalConfigurationIssueDetails"></div>
     </div>
-    <p data-i18n-key="configurationIssueDescription" class="externalConfigurationIssueDetails"></p>
-    <p data-field="configurationDetails" class="externalConfigurationIssueDetails"></p>
-  </div>
-  <iframe id="externalComponentIFrame" title="External Component Container"></iframe>
+    <iframe id="externalComponentIFrame" title="External Component Container"></iframe>
 </div>
