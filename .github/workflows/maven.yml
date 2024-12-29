@@ -21,7 +21,7 @@ jobs:
 
     - name: Build with Maven and zip resulting package
       id: build
-      run: mvn package && zip -r melviz-webapp-parent/melviz-webapp/target/melviz-webapp.zip ./melviz-webapp-parent/melviz-webapp/target/melviz-webapp
+      run: mvn package && cd melviz-webapp-parent/melviz-webapp/target/ && zip -r melviz-webapp.zip melviz-webapp -x melviz-webapp/WEB-INF/\* -x  melviz-webapp/META-INF/\*
 
     - name: Upload MelvizWebApp
       uses: actions/upload-artifact@v4
