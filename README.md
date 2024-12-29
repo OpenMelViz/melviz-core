@@ -1,24 +1,41 @@
-# Melviz
+# Melviz Core
 
-Melviz is a general purpose dashboard and reporting web app which allows for:
+Melviz is a tool to visualize data visualizations, dashboards and reports built using YAML.
 
-- Visual configuration and personalization of dashboards
-- Support for different types of visualizations using several charting libraries
-- Full featured editor for the definition of chart visualizations
-- Definition of interactive report tables
-- Data extraction from external systems, through different protocols
-- Support for both analytics and real-time dashboards
+* Supports YAML based pages, allowing users to build dahsboards and reports in a declarative way;
+* Can read data from JSON, metrics and CSV sources;
+* Data can be transformed using JSONAta;
+* Support microfrontends for custom visualizations;
+* Can pull real-time data from its datasets;
+* Allow Communication between components using Filter components;
+
+This is the core project. It results in a web application that can be embed or live standalone to render YAML contents.
 
 Licensed under the Apache License, Version 2.0
 
 For further information, please visit the project web site <a href="http://melviz.org" target="_blank">melviz.org</a>
 
-# Architecture
+## Requirements
 
-- Not tied to any chart rendering technology. Pluggable renderers and components
-- No tied to any data storage.
-- Ability to read data from: CSV files, Databases, Elastic Search, Prometheus, Kafka orJava generators.
-- Decoupled client & server layers. Ability to build pure lightweight client dashboards.
-- Ability to push & handle data sets on client for better performance.
-- Based on <a href="http://www.uberfireframework.org" target="_blank">Uberfire</a>, a framework for building rich workbench styled apps on the web.
-- Cloud-native Runtime environment.
+* Java 21
+* Maven
+
+## Building
+
+Run `mvn clean install` on project root and find the web application in directory `melviz-webapp-parent/melviz-webapp/target/melviz-webapp`. 
+
+The web application can receive dynamic content by posting YAML to the main frame. Here's a sample Javascript code:
+
+```
+window.postMessage(`pages:    
+  - components:
+    - markdown: "# Hello World!"
+`, null)
+```
+
+It is also possible to use `setup.js` to configure static dashboards.
+
+Melviz can run in any web server or in Github Pages.
+
+
+
