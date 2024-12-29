@@ -19,14 +19,14 @@ jobs:
         distribution: 'temurin'
         cache: maven
 
-    - name: Build with Maven and zip resulting package
+    - name: Build with Maven and Clean up Package
       id: build
-      run: mvn package && cd melviz-webapp-parent/melviz-webapp/target/ && zip -r melviz-webapp.zip melviz-webapp -x melviz-webapp/WEB-INF/\* -x  melviz-webapp/META-INF/\*
+      run: mvn package && cd melviz-webapp-parent/melviz-webapp/target/ && rm -r melviz-webapp/WEB-INF/ melviz-webapp/META-INF/
 
     - name: Upload MelvizWebApp
       uses: actions/upload-artifact@v4
       with:
         name: MelvizWebApp
-        path: ./melviz-webapp-parent/melviz-webapp/target/melviz-webapp.zip
+        path: ./melviz-webapp-parent/melviz-webapp/target/melviz-webapp/
         if-no-files-found: warn
         overwrite: true
