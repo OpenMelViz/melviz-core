@@ -362,18 +362,18 @@
       <!-- Melviz Runtime -->
       <dependency>
         <groupId>org.melviz</groupId>
-        <artifactId>melviz-runtime-shared</artifactId>
+        <artifactId>melviz-webapp-shared</artifactId>
         <version>${project.version}</version>
       </dependency>
       <dependency>
         <groupId>org.melviz</groupId>
-        <artifactId>melviz-runtime-shared</artifactId>
+        <artifactId>melviz-webapp-shared</artifactId>
         <version>${project.version}</version>
         <classifier>sources</classifier>
       </dependency>
       <dependency>
         <groupId>org.melviz</groupId>
-        <artifactId>melviz-runtime-client</artifactId>
+        <artifactId>melviz-webapp</artifactId>
         <version>${project.version}</version>
         <scope>provided</scope>
         <type>war</type>

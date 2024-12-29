@@ -38,7 +38,7 @@
     <dependencies>
       <dependency>
         <groupId>org.melviz</groupId>
-        <artifactId>melviz-runtime-shared</artifactId>
+        <artifactId>melviz-webapp-shared</artifactId>
         <scope>provided</scope>
         <version>${project.version}</version>
       </dependency>      
@@ -58,13 +58,13 @@
   <dependencies>
     <dependency>
       <groupId>org.melviz</groupId>
-      <artifactId>melviz-runtime-shared</artifactId>
+      <artifactId>melviz-webapp-shared</artifactId>
       <scope>provided</scope>
     </dependency>
 
     <dependency>
       <groupId>org.melviz</groupId>
-      <artifactId>melviz-runtime-shared</artifactId>
+      <artifactId>melviz-webapp-shared</artifactId>
       <scope>provided</scope>
       <classifier>sources</classifier>
     </dependency>
